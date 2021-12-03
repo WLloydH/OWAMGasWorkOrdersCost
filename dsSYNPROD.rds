@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="dsSYNPROD">
+  <ConnectionProperties>
+    <Extension>OLEDB</Extension>
+    <ConnectString>Provider=OraOLEDB.Oracle.1;Data Source=WAMPROD</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>04934541-1cd0-443a-be7a-f7a7e6e4e56c</DataSourceID>
+</RptDataSource>
