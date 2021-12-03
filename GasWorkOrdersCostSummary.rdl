@@ -166,7 +166,7 @@
                   <Width>1in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>1.33333in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.44792in</Width>
@@ -273,7 +273,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>ASSET id</Value>
+                                  <Value>ASSET ID</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1222,14 +1222,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="WORK_ORDERDetail2">
+                        <Textbox Name="AssetID">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Label>WORK_ORDER_NODetail</Label>
+                                  <Label>Asset ID</Label>
                                   <Value>=Fields!ASSET_ID.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
@@ -2080,7 +2080,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2849,7 +2848,7 @@
             <DataSetName>DataSet1</DataSetName>
             <Top>0.68in</Top>
             <Height>0.72in</Height>
-            <Width>25.4233in</Width>
+            <Width>25.75663in</Width>
             <ZIndex>1</ZIndex>
             <Style />
           </Tablix>
