@@ -1384,6 +1384,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2321,6 +2322,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -3165,7 +3167,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!EMPLOYEE_COUNT.Value)</Value>
+                                  <Value>=Max(Fields!EMPLOYEE_COUNT.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3281,7 +3283,7 @@
                 <TablixMember>
                   <Group Name="AssetAndWorkOrderGroup">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!ASSET_ID.Value + Fields!WORK_ORDER_NO.Value</GroupExpression>
+                      <GroupExpression>=Fields!ASSET_ID.Value &amp; Fields!WORK_ORDER_NO.Value &amp; CStr(Fields!EMPLOYEE_COUNT.Value)</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
