@@ -168,7 +168,7 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Tablix Name="table1">
+          <Tablix Name="OwanGasWorkOrdersCostSummary">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
@@ -211,13 +211,13 @@
                   <Width>0.75in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.98958in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.73958in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>0.80208in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1in</Width>
@@ -226,7 +226,7 @@
                   <Width>1.20833in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.71875in</Width>
+                  <Width>0.51042in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.20833in</Width>
@@ -1343,6 +1343,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1384,7 +1385,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2322,7 +2322,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -3201,6 +3200,7 @@
                       <CellContents>
                         <Textbox Name="ADDRESS">
                           <CanGrow>true</CanGrow>
+                          <CanShrink>true</CanShrink>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -3317,17 +3317,18 @@
             <DataSetName>DataSet1</DataSetName>
             <Top>0.77083in</Top>
             <Height>0.75in</Height>
-            <Width>26.20704in</Width>
+            <Width>25.52996in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Color>White</Color>
                 <Style>None</Style>
               </Border>
+              <FontSize>7pt</FontSize>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.65625in</Height>
+        <Height>1.52083in</Height>
         <Style>
           <Border>
             <Style>None</Style>
