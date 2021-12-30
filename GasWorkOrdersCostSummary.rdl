@@ -24,8 +24,8 @@
     TRANSACTION_TYPE, 
     TRANSACTION_HOURS, 
     COMMITTED_AMOUNT,
-    EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2 as EMPLOYEE_COUNT,
-    ADDRESS
+    (EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2) as "EMPLOYEE_COUNT",
+     Max(ADDRESS) as "Address"   
   FROM (SELECT WO.ASSET_ID,
                WOC.WORK_ORDER_NO,
                WOC.ACTUAL_AMOUNT        AS "COST_ACTUAL",
@@ -39,7 +39,7 @@
                NULL                     AS "COMMITTED_AMOUNT",
                (SELECT Count(DISTINCT AL.EMPLOYEE_NO) FROM SA_ACCOUNT_LOG  AL WHERE WOC.WORK_ORDER_NO =  AL.WORK_ORDER_NO  AND AL.PLANT = '04' GROUP BY  AL.WORK_ORDER_NO, AL.PLANT ) AS EMPLOYEE_COUNT1,
                 0 AS EMPLOYEE_COUNT2,                                             
-               WO.ASSET_DESC            AS "ADDRESS"
+               WO.ASSET_DESC            AS "ADDRESS"               
           FROM SV_WORK_ORDER_COST  WOC
                JOIN SA_WORK_ORDER WO ON WOC.WORK_ORDER_NO = WO.WORK_ORDER_NO
          WHERE     WOC.PLANT = '04'
@@ -47,7 +47,7 @@
                AND WOC.WORK_ORDER_NO IS NOT NULL
                AND WO.PLANT = '04'
                AND WO.WORK_CATEGORY = 'MTSET'
-        UNION
+        UNION 
         SELECT AL.ASSET_ID,
                AL.WORK_ORDER_NO,
                NULL     AS "COST_ACTUAL",
@@ -61,7 +61,7 @@
                AL.COMMITTED_AMOUNT,
                0 AS EMPLOYEE_COUNT1,                 
                (CASE EMPLOYEE_NO WHEN  NULL THEN 0 ELSE 1 END) AS "EMPLOYEE_COUNT2",     
-               NULL     AS "ADDRESS"
+                NULL  AS "ADDRESS"       
           FROM SA_ACCOUNT_LOG  AL
                JOIN SA_WORK_ORDER WO ON AL.WORK_ORDER_NO = WO.WORK_ORDER_NO
          WHERE     AL.PLANT = '04'
@@ -70,9 +70,11 @@
                            ('PE1PIPE', 'PE2PIPE', 'PE3PIPE','PE4PIPE', 'PE5PIPE', 'PE6PIPE', 'PE7PIPE', 'TRACERWIRE', 'CSTRACERWIRE'))
                AND AL.WORK_ORDER_NO IS NOT NULL
                AND WO.PLANT = '04'
-               AND WO.WORK_CATEGORY = 'MTSET') A
+               AND WO.WORK_CATEGORY = 'MTSET') A                
+               
+GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL, COST_CATEGORY, STOCK_CODE, TRANSACTION_QUANTITY, TRANSACTION_AMOUNT, EMPLOYEE_NO, TRANSACTION_TYPE, TRANSACTION_HOURS, COMMITTED_AMOUNT
  
- ORDER BY 1, 2</CommandText>
+ ORDER BY 1, 2 </CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -125,10 +127,11 @@
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
         <Field Name="ADDRESS">
-          <DataField>ADDRESS</DataField>
+          <DataField>Address</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
+      <CaseSensitivity>False</CaseSensitivity>
     </DataSet>
   </DataSets>
   <ReportSections>
@@ -3122,7 +3125,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Label>Other Contractual Svcs</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Other Contractual Svcs", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>0</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3192,14 +3195,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox87">
-                          <CanGrow>true</CanGrow>
+                        <Textbox Name="AddressSum">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Max(Fields!ADDRESS.Value)</Value>
+                                  <Value>=Space(5) &amp; Fields!ADDRESS.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3212,7 +3214,6 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox87</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -3268,7 +3269,6 @@
             <TablixRowHierarchy>
               <TablixMembers>
                 <TablixMember>
-                  <FixedData>true</FixedData>
                   <KeepWithGroup>After</KeepWithGroup>
                   <RepeatOnNewPage>true</RepeatOnNewPage>
                   <KeepTogether>true</KeepTogether>
@@ -3300,8 +3300,15 @@
                         <Hidden>true</Hidden>
                       </Visibility>
                     </TablixMember>
-                    <TablixMember />
+                    <TablixMember>
+                      <Visibility>
+                        <Hidden>= iif(Last(Fields!ADDRESS.Value) = "Empty", true, false)</Hidden>
+                      </Visibility>
+                    </TablixMember>
                   </TablixMembers>
+                  <Visibility>
+                    <Hidden>=IIf(Len(Fields!ADDRESS.Value)&gt;0,true,false)</Hidden>
+                  </Visibility>
                   <KeepTogether>true</KeepTogether>
                 </TablixMember>
               </TablixMembers>
@@ -3311,7 +3318,7 @@
             <DataSetName>DataSet1</DataSetName>
             <Top>0.875in</Top>
             <Height>0.75in</Height>
-            <Width>24.42674in</Width>
+            <Width>24.42673in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
