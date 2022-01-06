@@ -4,13 +4,16 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="dsSYNPROD">
-      <DataSourceReference>dsSYNPROD</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>b0b32cf7-10b6-4a24-b625-6109d668d951</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>ODBC</DataProvider>
+        <ConnectString>dsn=wamprod</ConnectString>
+      </ConnectionProperties>
+      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:DataSourceID>13a9632e-1586-4e9f-b70f-d14c0b326c53</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="GasWorkOrders">
       <Query>
         <DataSourceName>dsSYNPROD</DataSourceName>
         <CommandText>SELECT ASSET_ID, 
@@ -25,7 +28,7 @@
     TRANSACTION_HOURS, 
     COMMITTED_AMOUNT,
     (EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2) as "EMPLOYEE_COUNT",
-     Max(ADDRESS) as "Address"   
+     Max(ADDRESS)  as "Location"    
   FROM (SELECT WO.ASSET_ID,
                WOC.WORK_ORDER_NO,
                WOC.ACTUAL_AMOUNT        AS "COST_ACTUAL",
@@ -61,7 +64,7 @@
                AL.COMMITTED_AMOUNT,
                0 AS EMPLOYEE_COUNT1,                 
                (CASE EMPLOYEE_NO WHEN  NULL THEN 0 ELSE 1 END) AS "EMPLOYEE_COUNT2",     
-                NULL  AS "ADDRESS"       
+               NULL  AS "ADDRESS"       
           FROM SA_ACCOUNT_LOG  AL
                JOIN SA_WORK_ORDER WO ON AL.WORK_ORDER_NO = WO.WORK_ORDER_NO
          WHERE     AL.PLANT = '04'
@@ -72,9 +75,9 @@
                AND WO.PLANT = '04'
                AND WO.WORK_CATEGORY = 'MTSET') A                
                
-GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL, COST_CATEGORY, STOCK_CODE, TRANSACTION_QUANTITY, TRANSACTION_AMOUNT, EMPLOYEE_NO, TRANSACTION_TYPE, TRANSACTION_HOURS, COMMITTED_AMOUNT
+GROUP BY ASSET_ID, WORK_ORDER_NO, COST_ACTUAL, COST_CATEGORY, STOCK_CODE, TRANSACTION_QUANTITY, TRANSACTION_AMOUNT, EMPLOYEE_NO, TRANSACTION_TYPE, TRANSACTION_HOURS, COMMITTED_AMOUNT, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2
  
- ORDER BY 1, 2 </CommandText>
+ ORDER BY 1, 2</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -126,8 +129,8 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
           <DataField>EMPLOYEE_COUNT</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
-        <Field Name="ADDRESS">
-          <DataField>Address</DataField>
+        <Field Name="Location">
+          <DataField>Location</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -159,7 +162,7 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
               </Paragraph>
             </Paragraphs>
             <Height>0.54167in</Height>
-            <Width>23.84341in</Width>
+            <Width>24.42674in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -181,9 +184,6 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.65in</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>0.75in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.75in</Width>
@@ -243,7 +243,7 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                   <Width>0.71875in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.9205in</Width>
+                  <Width>4.67051in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -275,6 +275,11 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                             <Border>
                               <Style>None</Style>
                             </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
                             <FontFamily />
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -509,63 +514,6 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox14</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox18">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Pe3pipe</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Color>#666666</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Color>#666666</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
-                          <Visibility>
-                            <Hidden>true</Hidden>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1310,14 +1258,14 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox85">
+                        <Textbox Name="Textbox4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Addresss</Value>
+                                  <Value>ADDRESS</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -1327,11 +1275,11 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Center</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox85</rd:DefaultName>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1562,48 +1510,6 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Style>
-                            <Border>
-                              <Color>White</Color>
-                              <Style>None</Style>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="PE3PIPE_Detail">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Label>PE3PIPE_QUANTITY</Label>
-                                  <Value>=iif(Fields!STOCK_CODE.Value = "PE3PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Color>#333333</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Visibility>
-                            <Hidden>true</Hidden>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -2246,14 +2152,14 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox86">
+                        <Textbox Name="Location">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!ADDRESS.Value</Value>
+                                  <Value>=Fields!Location.Value</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2262,11 +2168,11 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox86</rd:DefaultName>
+                          <rd:DefaultName>Location</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -2495,48 +2401,6 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <Style>
-                            <Border>
-                              <Color>White</Color>
-                              <Style>None</Style>
-                            </Border>
-                            <BottomBorder>
-                              <Style>Solid</Style>
-                            </BottomBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="PE3PIPE_QUANTITY">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Label>PE3PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE3PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontSize>8pt</FontSize>
-                                    <Color>DarkBlue</Color>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <Visibility>
-                            <Hidden>true</Hidden>
-                          </Visibility>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -3125,7 +2989,7 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                               <TextRuns>
                                 <TextRun>
                                   <Label>Other Contractual Svcs</Label>
-                                  <Value>0</Value>
+                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Resale", Fields!COST_ACTUAL.Value, 0))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3195,13 +3059,14 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="AddressSum">
+                        <Textbox Name="Textbox8">
+                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Space(5) &amp; Fields!ADDRESS.Value</Value>
+                                  <Value>=Min(Fields!Location.Value)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3210,10 +3075,11 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                                 </TextRun>
                               </TextRuns>
                               <Style>
-                                <TextAlign>Left</TextAlign>
+                                <TextAlign>Right</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
+                          <rd:DefaultName>Textbox8</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -3228,6 +3094,7 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -3242,11 +3109,6 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember>
-                  <Visibility>
-                    <Hidden>true</Hidden>
-                  </Visibility>
-                </TablixMember>
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -3300,25 +3162,18 @@ GROUP BY ASSET_ID,WORK_ORDER_NO, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2, COST_ACTUAL,
                         <Hidden>true</Hidden>
                       </Visibility>
                     </TablixMember>
-                    <TablixMember>
-                      <Visibility>
-                        <Hidden>= iif(Last(Fields!ADDRESS.Value) = "Empty", true, false)</Hidden>
-                      </Visibility>
-                    </TablixMember>
+                    <TablixMember />
                   </TablixMembers>
-                  <Visibility>
-                    <Hidden>=IIf(Len(Fields!ADDRESS.Value)&gt;0,true,false)</Hidden>
-                  </Visibility>
                   <KeepTogether>true</KeepTogether>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <RepeatRowHeaders>true</RepeatRowHeaders>
             <FixedRowHeaders>true</FixedRowHeaders>
-            <DataSetName>DataSet1</DataSetName>
+            <DataSetName>GasWorkOrders</DataSetName>
             <Top>0.875in</Top>
             <Height>0.75in</Height>
-            <Width>24.42673in</Width>
+            <Width>24.42674in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>

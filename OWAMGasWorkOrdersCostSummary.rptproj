@@ -49,9 +49,6 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
-    <DataSource Include="dsSYNPROD.rds" />
-  </ItemGroup>
-  <ItemGroup>
     <Report Include="GasWorkOrdersCostSummary.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />
