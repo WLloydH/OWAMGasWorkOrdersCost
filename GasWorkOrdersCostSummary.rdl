@@ -28,7 +28,7 @@
     TRANSACTION_HOURS, 
     COMMITTED_AMOUNT,
     EMPLOYEE_COUNT1 +  EMPLOYEE_COUNT2 as "EMPLOYEE_COUNT",   
-     Max(ADDRESS)  as "Location"    
+    ADDRESS  as "Location"    
   FROM (SELECT WO.ASSET_ID,
                WOC.WORK_ORDER_NO,
                WOC.ACTUAL_AMOUNT        AS "COST_ACTUAL",
@@ -76,12 +76,12 @@
          WHERE     AL.PLANT = '04'
                AND (   AL.TRANSACTION_TYPE IN ('LR', 'LP')
                     OR AL.STOCK_CODE IN
-                           ('PE1PIPE', 'PE2PIPE', 'PE3PIPE','PE4PIPE', 'PE5PIPE', 'PE6PIPE', 'PE7PIPE', 'TRACERWIRE', 'CSTRACERWIRE'))
+                           ('PE1PIPE','PE2PIPE','PE4PIPE','PE6PIPE','PE58PIPE','PE34PIPE','PE114PIPE','TRACERWIRE','CSTRACERWIRE'))
                AND AL.WORK_ORDER_NO IS NOT NULL
                AND WO.PLANT = '04'
                AND WO.WORK_CATEGORY = 'MTSET') A    
  
-GROUP BY ASSET_ID, WORK_ORDER_NO, COST_ACTUAL, COST_CATEGORY, STOCK_CODE, TRANSACTION_QUANTITY, TRANSACTION_AMOUNT, EMPLOYEE_NO, TRANSACTION_TYPE, TRANSACTION_HOURS, COMMITTED_AMOUNT, EMPLOYEE_COUNT1 + EMPLOYEE_COUNT2
+
 ORDER BY 1, 2</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
@@ -292,7 +292,6 @@ ORDER BY 1, 2</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -3072,7 +3071,7 @@ ORDER BY 1, 2</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Min(Fields!Location.Value)</Value>
+                                  <Value>=Min(iif(Rtrim(Fields!Location.Value) LIKE "*", Fields!Location.Value, NOTHING))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -3979,7 +3978,7 @@ ORDER BY 1, 2</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Min(Fields!Location.Value)</Value>
+                                  <Value>=Min(IIF((Fields!Location.Value) Like "*", Fields!Location.Value, NOTHING))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
