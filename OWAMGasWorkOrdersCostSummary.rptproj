@@ -8,11 +8,11 @@
     <OverwriteDataSources>False</OverwriteDataSources>
     <TargetServerVersion>SSRS2016</TargetServerVersion>
     <Platform>Win32</Platform>
-    <TargetReportFolder>SynergenReports</TargetReportFolder>
+    <TargetReportFolder>Gas/Misc</TargetReportFolder>
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
     <TargetReportPartFolder>Report Parts</TargetReportPartFolder>
-    <TargetServerURL>http://msb-db-test:9001/TestReports</TargetServerURL>
+    <TargetServerURL>http://msb-db-test:9001/testreports</TargetServerURL>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'DebugLocal' ">
     <FullPath>DebugLocal</FullPath>
@@ -50,6 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <DataSource Include="dsMsbGisProd.rds" />
+    <DataSource Include="dsSYNPROD.rds" />
   </ItemGroup>
   <ItemGroup>
     <Report Include="GasWorkOrdersCostSummary.rdl" />
