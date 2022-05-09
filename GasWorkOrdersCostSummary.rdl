@@ -209,41 +209,7 @@ ORDER BY 1, 2</CommandText>
     <DataSet Name="Contractor">
       <Query>
         <DataSourceName>dsMsbGisProd</DataSourceName>
-        <CommandText>SELECT DISTINCT  SC_Contractor [Contractor], 1 as  [filter]
-INTO #Contractor  
-FROM [gisadmin].[GAS_SERVICE] 
-WHERE   SC_Contractor NOT IN 
-(SELECT  SC_Contractor [Contractor] 
-FROM [gisadmin].[GAS_SERVICE]
-WHERE InstallationDate &lt; '3/6/2007'   
-GROUP BY SC_Contractor
-HAVING COUNT(*) = 1) 
-
-ORDER BY Contractor
-
-SELECT  DISTINCT  SC_Contractor [Contractor]  , 2 as filter INTO #ContractorJunk
-  FROM [gisadmin].[GAS_SERVICE] 
-WHERE  SC_Contractor  IN 
-(SELECT  SC_Contractor [Contractor] 
-FROM [gisadmin].[GAS_SERVICE]
-WHERE InstallationDate &lt; '3/6/2007' OR SC_Contractor = '&lt;NULL&gt;'
-GROUP BY SC_Contractor
-HAVING COUNT(*) = 1)
-ORDER BY 1 
-
-
-SELECT  Contractor, filter
-FROM
-(
-SELECT  * FROM #Contractor
-UNION 
-SELECT * FROM #ContractorJunk
-) a
-ORDER BY 2,1
-
-
-DROP TABLE #Contractor
-DROP TABLE #ContractorJunk</CommandText>
+        <CommandText>SELECT SC_Contractor [Contractor], count(*)  FROM [gisadmin].[GAS_SERVICE]  GROUP BY SC_Contractor ORDER BY 2 DESC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -251,8 +217,8 @@ DROP TABLE #ContractorJunk</CommandText>
           <DataField>Contractor</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="filter">
-          <DataField>filter</DataField>
+        <Field Name="ID">
+          <DataField />
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -450,11 +416,6 @@ DROP TABLE #ContractorJunk</CommandText>
                             <Border>
                               <Style>None</Style>
                             </Border>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
                             <FontFamily />
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -6359,7 +6320,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="LaborRegHours2">
+                        <Textbox Name="LaborRegularHours">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -7065,6 +7026,10 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                       <KeepTogether>true</KeepTogether>
                     </TablixMember>
                     <TablixMember>
+                      <Visibility>
+                        <Hidden>=ReportItems!LaborRegularHours.Value &lt; Parameters!LaborRegHoursStart.Value 
+OR ReportItems!LaborRegularHours.Value &gt; Parameters!LaborRegHoursEnd.Value</Hidden>
+                      </Visibility>
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
@@ -7105,6 +7070,14 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
                 <Operator>In</Operator>
                 <FilterValues>
                   <FilterValue>=Parameters!Contractor.Value</FilterValue>
+                </FilterValues>
+              </Filter>
+              <Filter>
+                <FilterExpression>=cdbl(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!MeasuredLength.Value, "GisServiceLine"))</FilterExpression>
+                <Operator>Between</Operator>
+                <FilterValues>
+                  <FilterValue>=Parameters!ServiceLengthStart.Value</FilterValue>
+                  <FilterValue>=Parameters!ServiceLengthEnd.Value</FilterValue>
                 </FilterValues>
               </Filter>
             </Filters>
@@ -7150,6 +7123,24 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
       </DefaultValue>
       <Prompt>Install Date End</Prompt>
     </ReportParameter>
+    <ReportParameter Name="ServiceLengthStart">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Service Length Start</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ServiceLengthEnd">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=9999999</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Service Length End</Prompt>
+    </ReportParameter>
     <ReportParameter Name="Contractor">
       <DataType>String</DataType>
       <DefaultValue>
@@ -7171,10 +7162,28 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
         <cl:HideUpdateNotifications>true</cl:HideUpdateNotifications>
       </cl:ComponentMetadata>
     </ReportParameter>
+    <ReportParameter Name="LaborRegHoursStart">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Labor Reg Hours Start</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="LaborRegHoursEnd">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>999999</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Labor Reg Hours End</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
-      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfColumns>5</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
@@ -7188,9 +7197,29 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
           <ParameterName>InstallDateEnd</ParameterName>
         </CellDefinition>
         <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
+          <ColumnIndex>4</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Contractor</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>ServiceLengthStart</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>ServiceLengthEnd</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>LaborRegHoursStart</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>LaborRegHoursEnd</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
