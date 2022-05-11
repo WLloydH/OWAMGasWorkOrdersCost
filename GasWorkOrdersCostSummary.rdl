@@ -6204,7 +6204,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="LaborOTHours2">
+                        <Textbox Name="LaborOverTimeHrs">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -7027,8 +7027,14 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                     </TablixMember>
                     <TablixMember>
                       <Visibility>
-                        <Hidden>=ReportItems!LaborRegularHours.Value &lt; Parameters!LaborRegHoursStart.Value 
-OR ReportItems!LaborRegularHours.Value &gt; Parameters!LaborRegHoursEnd.Value</Hidden>
+                        <Hidden>=((ReportItems!LaborRegularHours.Value &lt; Parameters!LaborRegHoursStart.Value 
+	OR 
+ReportItems!LaborRegularHours.Value &gt; Parameters!LaborRegHoursEnd.Value) 
+	OR 
+(ReportItems!LaborOverTimeHrs.Value &lt; Parameters!OverTimeHoursStart.Value
+
+	OR 
+ReportItems!LaborOverTimeHrs.Value &gt; Parameters!OverTimeHoursEnd.Value))</Hidden>
                       </Visibility>
                       <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
@@ -7180,6 +7186,24 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
       </DefaultValue>
       <Prompt>Labor Reg Hours End</Prompt>
     </ReportParameter>
+    <ReportParameter Name="OverTimeHoursStart">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>0</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Over Time Hours Start</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="OverTimeHoursEnd">
+      <DataType>Float</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>9999999</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Over Time Hours Start</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -7220,6 +7244,16 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>LaborRegHoursEnd</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>OverTimeHoursStart</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>OverTimeHoursEnd</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
