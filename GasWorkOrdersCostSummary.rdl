@@ -209,7 +209,7 @@ ORDER BY 1, 2</CommandText>
     <DataSet Name="Contractor">
       <Query>
         <DataSourceName>dsMsbGisProd</DataSourceName>
-        <CommandText>SELECT SC_Contractor [Contractor], count(*)  FROM [gisadmin].[GAS_SERVICE]  GROUP BY SC_Contractor ORDER BY 2 DESC</CommandText>
+        <CommandText>SELECT SC_Contractor [Contractor],  SC_Contractor ,  count(*)  [Count]  FROM [gisadmin].[GAS_SERVICE]  GROUP BY SC_Contractor ORDER BY 3 DESC</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -217,8 +217,12 @@ ORDER BY 1, 2</CommandText>
           <DataField>Contractor</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="ID">
-          <DataField />
+        <Field Name="SC_Contractor">
+          <DataField>SC_Contractor</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Count">
+          <DataField>Count</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
@@ -7155,6 +7159,7 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
           <ValueField>Contractor</ValueField>
         </DataSetReference>
       </DefaultValue>
+      <AllowBlank>true</AllowBlank>
       <Prompt>Contractor</Prompt>
       <ValidValues>
         <DataSetReference>
