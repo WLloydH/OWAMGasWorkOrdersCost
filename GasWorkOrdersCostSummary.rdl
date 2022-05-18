@@ -5075,7 +5075,7 @@ ORDER BY 1, 2</CommandText>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="GroundsMatlInv">
+                        <Textbox Name="GroundsMatlInvDetail">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6650,7 +6650,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="GroundsMatlInv2">
+                        <Textbox Name="GroundsMatlInv">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6729,7 +6729,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="OperatingSupplies2">
+                        <Textbox Name="OtherContractualSvcs">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -6777,7 +6777,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                                 <TextRun>
                                   <Value>= formatNumber(
 (ReportItems!OthStrcMatlInv.Value 
-+ ReportItems!OthStrcContractsum1.Value
++ ReportItems!OthStrcContract.Value
 + ReportItems!CGSLaborTotal.Value
 )
 /ReportItems!ServiceLength.value,4)</Value>
@@ -7061,18 +7061,10 @@ ReportItems!LaborOverTimeHrs.Value &gt; Parameters!OverTimeHoursEnd.Value))</Hid
                 <FilterExpression>=Cdate(IIf(IsNothing(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!InstallationDate.Value, "GisServiceLine")), 
 formatdatetime(Cdate("1/1/1800") , DateFormat.ShortDate),
 FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!InstallationDate.Value, "GisServiceLine"),DateFormat.ShortDate)))</FilterExpression>
-                <Operator>GreaterThanOrEqual</Operator>
+                <Operator>Between</Operator>
                 <FilterValues>
-                  <FilterValue DataType="DateTime">=Parameters!InstallDateStart.Value</FilterValue>
-                </FilterValues>
-              </Filter>
-              <Filter>
-                <FilterExpression>=Cdate(IIf(IsNothing(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!InstallationDate.Value, "GisServiceLine")), 
-formatdatetime(Cdate("1/1/1800") , DateFormat.ShortDate),
-FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!InstallationDate.Value, "GisServiceLine"),DateFormat.ShortDate)))</FilterExpression>
-                <Operator>LessThanOrEqual</Operator>
-                <FilterValues>
-                  <FilterValue DataType="DateTime">=Parameters!InstallDateEnd.Value</FilterValue>
+                  <FilterValue>=Parameters!InstallDateStart.Value</FilterValue>
+                  <FilterValue>=Parameters!InstallDateEnd.Value</FilterValue>
                 </FilterValues>
               </Filter>
               <Filter>
