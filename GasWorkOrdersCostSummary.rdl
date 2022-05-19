@@ -1989,7 +1989,7 @@ ORDER BY 1, 2</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>SOther Contractual Svcs</Value>
+                                  <Value>Other Contractual Svcs</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -2346,7 +2346,6 @@ ORDER BY 1, 2</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -7204,7 +7203,7 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
           <Value>9999999</Value>
         </Values>
       </DefaultValue>
-      <Prompt>Over Time Hours Start</Prompt>
+      <Prompt>Over Time Hours End</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
