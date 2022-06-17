@@ -6408,7 +6408,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Formatnumber(ReportItems!RegLabor.value *  0.3179,4)</Value>
+                                  <Value>=CDEC(IIf(Globals!RenderFormat.Name="EXCELOPENXML", Formatnumber((ReportItems!RegLabor.value *  0.3179)/100,4), Formatnumber((ReportItems!RegLabor.value *  0.3179)/100,4)))</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Color>DarkBlue</Color>
@@ -6616,7 +6616,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber((ReportItems!OthStrcContract.Value + ReportItems!CGSLaborTotal.Value)/ReportItems!ServiceLength.value,4)</Value>
+                                  <Value>=cdec(FormatNumber((ReportItems!OthStrcContract.Value + ReportItems!CGSLaborTotal.Value)/ReportItems!ServiceLength.value,4))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6813,12 +6813,12 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= formatNumber(
+                                  <Value>= cdec( formatNumber(
 (ReportItems!OthStrcMatlInv.Value 
 + ReportItems!OthStrcContract.Value
 + ReportItems!CGSLaborTotal.Value
 )
-/ReportItems!ServiceLength.value,4)</Value>
+/ReportItems!ServiceLength.value,4))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
