@@ -253,6 +253,7 @@ ORDER BY 1</CommandText>
                 </Style>
               </Paragraph>
             </Paragraphs>
+            <Left>0.14583in</Left>
             <Height>0.54167in</Height>
             <Width>24.42674in</Width>
             <Style>
@@ -5716,7 +5717,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= FormatNumber(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!MeasuredLength.Value, "GisServiceLine"),2)</Value>
+                                  <Value>=CDec( FormatNumber(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!MeasuredLength.Value, "GisServiceLine"),2))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5827,7 +5828,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>CSTRACERWIRE Qty</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "CSTRACERWIRE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "CSTRACERWIRE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5862,7 +5863,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= FormatNumber(( ( ReportItems!TraceWire.value + ReportItems!CSTraceWire.value )  /ReportItems!ServiceLength.Value )  - 1,2)</Value>
+                                  <Value>= CDEC(FormatNumber(( ( ReportItems!TraceWire.value + ReportItems!CSTraceWire.value )  /ReportItems!ServiceLength.Value )  - 1,2))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5899,7 +5900,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE1PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE1PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDEC(Sum(iif(Fields!STOCK_CODE.Value = "PE1PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5935,7 +5936,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE2PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE2PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE2PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -5974,7 +5975,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE4PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE4PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE4PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6013,7 +6014,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE6PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE6PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE6PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6052,7 +6053,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE58PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE58PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE58PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6091,7 +6092,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE34PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE34PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE34PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6130,7 +6131,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>PE114PIPE_QUANTITY</Label>
-                                  <Value>=Sum(iif(Fields!STOCK_CODE.Value = "PE114PIPE", Fields!TRANSACTION_QUANTITY.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!STOCK_CODE.Value = "PE114PIPE", Fields!TRANSACTION_QUANTITY.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6168,14 +6169,14 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=formatNumber(((ReportItems!PE1PIPE_QUANTITY.Value 
+                                  <Value>=CDec(formatNumber(((ReportItems!PE1PIPE_QUANTITY.Value 
 + ReportItems!PE2PIPE_QUANTITY.Value 
 + ReportItems!PE4PIPE_QUANTITY.Value 
 + ReportItems!PE6PIPE_QUANTITY.Value 
 + ReportItems!PE58PIPE_QUANTITY.Value 
 + ReportItems!P34PIPE_QUANTITY.Value 
 + ReportItems!Pe114pipe_QUANTITY.Value
-)/ReportItems!ServiceLength.value ) -1,2)</Value>
+)/ReportItems!ServiceLength.value ) -1,2))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6215,7 +6216,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>LaborOT</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Labor-OT", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Labor-OT", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6254,7 +6255,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Labor OT Hours</Label>
-                                  <Value>=FORMATNUMBER(Sum(iif(Fields!TRANSACTION_TYPE.Value = "LP", Fields!TRANSACTION_HOURS.Value, 0)), 3)</Value>
+                                  <Value>=CDec(FORMATNUMBER(Sum(iif(Fields!TRANSACTION_TYPE.Value = "LP", Fields!TRANSACTION_HOURS.Value, 0)), 3))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6292,7 +6293,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=ReportItems!OtLabor.Value * 0.0145</Value>
+                                  <Value>=IIf(Globals!RenderFormat.Name="EXCELOPENXML", ReportItems!OtLabor.Value * 0.0145/100, ReportItems!OtLabor.Value * 0.0145)</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6331,7 +6332,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Labor-Reg</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Labor-Reg", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Labor-Reg", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6370,7 +6371,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Labor Reg Hours</Label>
-                                  <Value>=FORMATNUMBER(Sum(iif(Fields!TRANSACTION_TYPE.Value = "LR", Fields!TRANSACTION_HOURS.Value, 0)), 3)</Value>
+                                  <Value>=CDec(FORMATNUMBER(Sum(iif(Fields!TRANSACTION_TYPE.Value = "LR", Fields!TRANSACTION_HOURS.Value, 0)), 3))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6445,7 +6446,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>= (ReportItems!OtLabor.value + ReportItems!RegLabor.value) * 0.1</Value>
+                                  <Value>= CDec((ReportItems!OtLabor.value + ReportItems!RegLabor.value) * 0.1)</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Color>DarkBlue</Color>
@@ -6482,12 +6483,12 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=FormatNumber(reportItems!OtLabor.value 
+                                  <Value>=CDec(FormatNumber(reportItems!OtLabor.value 
 +  reportItems!RegLabor.value 
 + reportItems!BenefitsRegLabor.Value  
 + reportItems!BenefitsOtLabor.value  
 +  reportItems!CGSOverhead.Value
-+  reportItems!VehicleCost.Value,4)</Value>
++  reportItems!VehicleCost.Value,4))</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Color>DarkBlue</Color>
@@ -6525,7 +6526,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Oth Strc Matl Inv</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Oth Strc Matl Inv", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Oth Strc Matl Inv", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontSize>8pt</FontSize>
                                     <Color>DarkBlue</Color>
@@ -6578,7 +6579,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Oth Strc Contract</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Oth Strc Contract", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Oth Strc Contract", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6656,7 +6657,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Resale</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Resale", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Resale", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6696,7 +6697,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Grounds Matl Inv</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Grounds Matl Inv", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Grounds Matl Inv", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -6735,7 +6736,7 @@ FormatDateTime(Lookup(ReportItems!AssetId.Value,Fields!ASSET_ID.Value,Fields!Cre
                               <TextRuns>
                                 <TextRun>
                                   <Label>Operating Supplies</Label>
-                                  <Value>=Sum(iif(Fields!COST_CATEGORY.Value = "Operating Supplies", Fields!COST_ACTUAL.Value, 0))</Value>
+                                  <Value>=CDec(Sum(iif(Fields!COST_CATEGORY.Value = "Operating Supplies", Fields!COST_ACTUAL.Value, 0)))</Value>
                                   <Style>
                                     <FontFamily>Arial</FontFamily>
                                     <FontSize>8pt</FontSize>
@@ -7082,7 +7083,7 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
                 </FilterValues>
               </Filter>
             </Filters>
-            <Top>0.875in</Top>
+            <Top>0.47917in</Top>
             <Height>1in</Height>
             <Width>45.79132in</Width>
             <ZIndex>1</ZIndex>
@@ -7095,14 +7096,14 @@ FormatDateTime(Lookup(Fields!ASSET_ID.Value,Fields!ASSET_ID.Value,Fields!Install
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>1.875in</Height>
+        <Height>1.53125in</Height>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Body>
-      <Width>45.79132in</Width>
+      <Width>45.93715in</Width>
       <Page>
         <PageHeight>8.5in</PageHeight>
         <PageWidth>11in</PageWidth>
